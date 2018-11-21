@@ -1,0 +1,54 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/ucenter/address/address",
+        "pages/ucenter/addressAdd/addressAdd",
+        "pages/ucenter/order/order",
+        "pages/ucenter/orderDetail/orderDetail",
+        "pages/ucenter/express/express",
+        "pages/ucenter/feedback/feedback",
+        "pages/pay/pay",
+        "pages/payResult/payResult",
+        "pages/ucenter/index/index",
+        "pages/comment/comment",
+        "pages/brand/brand",
+        "pages/brandDetail/brandDetail",
+        "pages/search/search",
+        "pages/shopping/checkout/checkout",
+        "pages/shopping/address/address",
+        "pages/shopping/addressAdd/addressAdd",
+        "pages/goods/goods",
+        "pages/shopping/shcoupon/shcoupon",
+        "pages/ucenter/bingphone/bingphone",
+        "pages/ucenter/customer/customer",
+        "pages/ucenter/ordercomment/ordercomment",
+        "pages/collagecheckout/collagecheckout",
+        "pages/collagegoods/collagegoods",
+        "pages/AwxChageUserInfoGet/wxChageUserInfoGet",
+        "pages/collageUserIn_pay/collageUserIn_pay",
+        "pages/ucenter/distribution_catch/distribution_catch",
+        "pages/ucenter/bankcard/bankcard",
+        "pages/luckdraw/luckdraw",
+        "pages/luckdraw_all/luckdraw_all",
+        "pages/Resagin_bargain/Resagin_bargain",
+        "pages/Resagin_bargain_goods/Resagin_bargain_goods",
+        "pages/ucenter/level_page/level_page",
+        "pages/ucenter/NoviceGuide/NoviceGuide",
+        "pages/ucenter/AftersaleGuide/AftersaleGuide"
+    ],
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#fff",
+        "enablePullDownRefresh": false,
+        "navigationBarTitleText": "砍价有神器",
+        "navigationBarTextStyle": "black"
+    },
+    "networkTimeout": {
+        "request": 10000,
+        "downloadFile": 10000
+    },
+    "debug": true,
+    "navigateToMiniProgramAppIdList": [
+      "wx6c9dc4f94a299ed7"
+    ]
+}

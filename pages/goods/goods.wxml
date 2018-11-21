@@ -1,0 +1,191 @@
+<scroll-view scroll-y class='goods_view_scroll'>
+    <swiper class="goods_view_scroll_loop_imgs" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
+        <swiper-item wx:for="{{gallery}}" wx:key="{{item.id}}">
+            <image style='height:100%;width:100%' src="{{item.img_url}}"></image>
+        </swiper-item>
+    </swiper>
+    <view class='scroll_goods_info'>
+        <view class="name">{{goods.name}}</view>
+        <view class="desc">
+          <text>
+            {{goods.goods_brief}}
+          </text>
+        </view>
+        <view class='price_area'>
+            <view class='retail_price'>￥
+                <span class="big">{{goods.retail_price}}</span>
+            </view>
+            <view class='extra_price'>￥{{goods.extra_price}}</view>
+        </view>
+    </view>
+    <view class='other_goods_info'>
+        <view class='other_goods_info_left'>运费 ￥{{goods.freight_price}} </view>
+        <view class='other_goods_info_middle'>已售 {{goods.have_pay_num}} </view>
+        <view class='other_goods_info_right'>库存 {{goods.goods_number
+            <=0 ? 1 : goods.goods_number}} </view>
+        </view>
+        <!-- 1.选择：绑定事件改为 bindtap='launchBargain' -->
+        <!-- <view wx:if="{{auth}}" class="scroll_goods_tabler" data-goodsid="{{id}}" data-barid="{{barid}}" bindtap='launchBargain' data-type='0'>
+            <view class="text">选择：{{checkedSpecText}}</view>
+            <image class="arrow" src="../../static/images/address_right.png" background-size="cover"></image>
+        </view> -->
+        <!-- <button wx:if="{{!auth}}" class='scroll_goods_tabler' style='padding-left:0;padding-right:0' open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+            <view class="text">选择：{{checkedSpecText}}</view>
+            <image class="arrow" src="../../static/images/address_right.png" background-size="cover"></image>
+        </button> -->
+
+        <view class="scroll_goods_detail">
+            <view class="title">┈ 商品详情 ┈</view>
+        </view>
+        <import src="../../lib/wxParse/wxParse.wxml" />
+        <view class="detail">
+            <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" />
+        </view>
+        <!-- <view class="goods_problem">
+            <view class="h">
+                <view class="line"></view>
+                <text class="title">常见问题</text>
+            </view>
+            <view class="b">
+                <view class="item" wx:for="{{issueList}}" wx:key="{{item.id}}">
+                    <view class="question-box">
+                        <text class="spot"></text>
+                        <text class="question">{{item.question}}</text>
+                    </view>
+                    <view class="answer">
+                        {{item.answer}}
+                    </view>
+                </view>
+            </view>
+        </view> -->
+        <view class='comy_tip'>微泛科技 提供技术支持</view>
+</scroll-view>
+<view class='bottom_btn_area'>
+    <!-- <button class='area customer' open-type='contact'>
+        <image class="icon" src="/image/coumse.png"></image>
+        <view class='text'>客服</view>
+    </button> -->
+
+    <!-- <view wx:if="{{auth}}" class="scroll_goods_tabler" data-goodsid="{{id}}" data-barid="{{barid}}" bindtap='launchBargain' data-type='0'> -->
+    <!-- //未开启砍价 -->
+    <view class='action_button_area_nocollage'>
+        <view class='add_cart' bindtap="launchBargainPay" data-goodsid="{{id}}" data-barid="{{barid}}" wx:if="{{!bar_is_End}}" data-type='0'>立即支付</view>
+        <view class='buy_now' data-goodsid="{{id}}" data-barid="{{barid}}" bindtap="launchBargain" data-type='0'>发起砍价</view>
+    </view>
+    <!-- //开启砍价 -->
+</view>
+
+<!-- 隐藏区域  -->
+<!-- ========================================11111111111111 -->
+<!--以下为发起砍价  -->
+<view class="sku_screen" bindtap="hideSkuModal" wx:if="{{showSkuModalStatus}}"></view>
+<view animation="{{animationSkuData}}" class="sku_box" wx:if="{{showSkuModalStatus}}">
+    <view class='sku_box_top'>
+        <image class='sku_box_top_img' src='{{thisbargoods.goods.list_pic_url}}'></image>
+        <!-- thisbargoods.lowest_price -->
+        <view class='sku_box_top_skuprice'>
+            ￥{{lowest_price}}元
+            <span class='sku_box_top_skurelprice'>￥{{checkgoods.retail_price}} </span>
+        </view>
+        <view class='sku_box_top_skuvalue' wx:if="{{productList.length > 0}}">
+            已选择：{{checkedSpecText}}
+        </view>
+    </view>
+    <view class='sku_box_middle'>
+        <view class="sku_middle_spec">
+            <view class="spec-item" wx:for="{{specificationList}}" wx:key="{{item.specification_id}}">
+                <view class="sku_middle_spec_name">{{item.name}}</view>
+                <view class="sku_middle_spec_values">
+                    <view class="sku_middle_spec_value {{vitem.checked ? 'selected' : ''}}" bindtap="clickSkuValue" wx:for="{{item.valueList}}" wx:for-item="vitem" wx:key="{{vitem.id}}" data-value-id="{{vitem.id}}" data-name-id="{{vitem.specification_id}}">{{vitem.value}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view>
+        <view style='margin:0 auto;margin-bottom:12rpx' class='corner_btn' bindtap='skuSure'>确定</view>
+    </view>
+</view>
+
+<!-- ==========================================22222222222 -->
+<!-- 立即支付弹层 -->
+<view class="sku_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="sku_box" wx:if="{{showModalStatus}}">
+    <view class='sku_box_top'>
+        <image class='sku_box_top_img' src='{{thisbargoods.goods.list_pic_url}}'></image>
+        <!-- thisbargoods.lowest_price -->
+        <view class='sku_box_top_skuprice'>
+            ￥{{checkgoods.retail_price}}元
+            <!-- <span class='sku_box_top_skurelprice'>￥{{lowest_price}} </span> -->
+        </view>
+        <view class='sku_box_top_skuvalue' wx:if="{{productList.length > 0}}">
+            已选择：{{checkedSpecText}}
+        </view>
+        <view class='sku_middle_spec_goodsnum'>剩余：{{goods.goods_number
+            <=0 ? 1 : goods.goods_number}}</view>
+        </view>
+        <view class='sku_box_middle'>
+            <view class="sku_middle_spec">
+                <view class="spec-item" wx:for="{{specificationList}}" wx:key="{{item.specification_id}}">
+                    <view class="sku_middle_spec_name">{{item.name}}</view>
+                    <view class="sku_middle_spec_values">
+                        <view class="sku_middle_spec_value {{vitem.checked ? 'selected' : ''}}" bindtap="clickSkuValue" wx:for="{{item.valueList}}" wx:for-item="vitem" wx:key="{{vitem.id}}" data-value-id="{{vitem.id}}" data-name-id="{{vitem.specification_id}}">{{vitem.value}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="sku_middle_spec_num" wx:if="{{typec == 0}}">
+            <view class="sku_middle_spec_name mar">数量</view>
+            <view class="selnum">
+                <view class="cut" bindtap="cutNumber">-</view>
+                <input value="{{number}}" class="number" disabled="true" type="number" />
+                <view class="add" bindtap="addNumber">+</view>
+            </view>
+        </view>
+        <view>
+            <view style='margin:0 auto;margin-bottom:12rpx' class='corner_btn' bindtap='checkoutOrder'>确定</view>
+        </view>
+    </view>
+
+
+
+
+    <!-- <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view> -->
+    <!-- <view animation="{{animationData}}" class="commodity_sku_box" wx:if="{{showModalStatus}}">
+    <view class='sku_box_top'>
+        <image class='sku_box_top_img' src='{{goods.list_pic_url}}'></image>
+        <view class='sku_box_top_skuprice' wx:if="{{typec == 0}}">
+            ￥
+            <span class="big">{{checkgoodsprice.retail_price}}</span> 元
+        </view>
+        <view class='sku_box_top_skuprice' wx:if="{{typec == 1}}">
+            <span style="font-size:20rpx;font-weight:bold"> 拼团价￥</span>
+            <span class="big">{{collage[0].collage_price}}</span> 元
+            <span class='sku_box_top_skurelprice'>￥ {{checkgoodsprice.retail_price}} </span>
+        </view>
+        <view class='sku_box_top_skuvalue' wx:if="{{productList.length>0}}">
+            已选择：{{checkedSpecText}}
+        </view>
+        <view class='sku_middle_spec_goodsnum'>剩余：{{checkgoodsprice.goods_number}}</view>
+    </view>
+    <view class='sku_box_middle'>
+        <view class="sku_middle_spec">
+            <view class="spec-item" wx:for="{{specificationList}}" wx:key="{{item.specification_id}}">
+                <view class="sku_middle_spec_name">{{item.name}}</view>
+                <view class="sku_middle_spec_values">
+                    <view class="sku_middle_spec_value {{vitem.checked ? 'selected' : ''}}" bindtap="clickSkuValue" wx:for="{{item.valueList}}" wx:for-item="vitem" wx:key="{{vitem.id}}" data-value-id="{{vitem.id}}" data-name-id="{{vitem.specification_id}}">{{vitem.value}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="sku_middle_spec_num" wx:if="{{typec == 0}}">
+            <view class="sku_middle_spec_name">数量</view>
+            <view class="selnum">
+              
+                <input value="{{number}}" class="number" disabled="true" type="number" />
+         
+            </view>
+        </view>
+    </view>
+ 
+
+</view> -->
+    <!-- <button wx:if="{{!auth}}" class='auth_btn' open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo"></button> -->

@@ -1,0 +1,6 @@
+{
+  "backgroundColor": "#f4f4f4",
+  "usingComponents": {
+    "topbar": "../../Components/topbar/topbar"
+  }
+}

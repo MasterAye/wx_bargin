@@ -1,0 +1,32 @@
+<!--pages/Components/topbar.wxml-->
+
+<view class="topbar {{iphonex == 'X'?'iphone': ''}}">
+  <view class="topbar-content">
+    <view wx:for="{{target}}" bindtap="changetopbar" wx:key="{{item.id}}" data-active="{{item.active}}" data-num="{{item.num}}" data-url="{{item.url}}" class="topbar-item {{item.active? 'active' : ''}}">
+      <image class="topbar-icon" wx:if="{{!item.active? true : false}}" src="{{item.ico}}"></image>
+      <image class="topbar-icon" wx:if="{{item.active? true : false}}" src="{{item.icoselect}}"></image>
+      <view class="text">{{item.text}}</view>
+    </view>
+  </view>
+</view>
+
+<!-- <view class="topbar">
+  <view class="topbar-content">
+    <view wx:for="{{navData}}" bindtap="changetopbar" wx:key="{{item.id}}" data-active="{{navData.active}}" data-url="{{item.url}}" class="topbar-item {{navData.active? 'active' : ''}}">
+      <image class="topbar-icon" wx:if="{{!navData.active? true : false}}" src="{{item.ico}}"></image>
+      <image class="topbar-icon" wx:if="{{navData.active? true : false}}" src="{{item.icoselect}}"></image>      
+      <view class="text">{{item.text}}</view>
+    </view>
+  </view>
+</view> -->
+
+
+<!-- <view class="topbar">
+  <view class="topbar-content">
+    <navigator wx:for="{{navData}}" wx:key="{{item.id}}" url="{{item.url}}" class="topbar-item {{item.active == 1? 'active' : ''}}">
+      <image class="topbar-icon" wx:if="{{item.active !== 1? true : false}}" src="{{item.ico}}"></image>
+      <image class="topbar-icon" wx:if="{{item.active == 1? true : false}}" src="{{item.icoselect}}"></image>
+      <view class="text">{{item.text}}</view>
+    </navigator>
+  </view>
+</view> -->

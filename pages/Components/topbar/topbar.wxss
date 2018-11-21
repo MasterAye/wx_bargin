@@ -1,0 +1,50 @@
+/* pages/Components/topbar.wxss */
+
+.topbar {
+  position: fixed;
+  z-index: 99999;
+  bottom: 0rpx;
+  width: 100%;
+  /* height: 90rpx; */
+  padding: 6px 0 4px;
+  background-color: #fafafa;
+}
+.topbar.iphone {
+  /* box-sizing: border-box; */
+  /* height: 68px; */
+  /* bottom: 20px; */
+  padding-bottom: 20px;
+}
+
+.topbar-content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.topbar-content .topbar-item {
+  text-align: center;
+}
+
+.topbar-content .topbar-item .topbar-icon {
+  display: block;
+  margin: 0 auto;
+  width: 28px;
+  height: 28px;
+}
+
+.topbar-content .topbar-item .topbar-icon.select {
+  display: none;
+}
+
+.topbar-content .topbar-item .text {
+  height: 10px;
+  line-height: 10px;
+  font-size: 10px;
+  color: #666;
+}
+
+.topbar-content .topbar-item.active .text {
+  color: #ffc20f;
+}
